@@ -1,4 +1,4 @@
-package com.anabol.servlets;
+package com.anabol.userstore.entity;
 
 import java.time.LocalDate;
 

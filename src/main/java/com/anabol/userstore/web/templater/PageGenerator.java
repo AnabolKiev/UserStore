@@ -1,4 +1,4 @@
-package com.anabol.templater;
+package com.anabol.userstore.web.templater;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;

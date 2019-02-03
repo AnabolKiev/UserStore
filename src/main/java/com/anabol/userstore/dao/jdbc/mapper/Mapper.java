@@ -1,4 +1,6 @@
-package com.anabol.servlets;
+package com.anabol.userstore.dao.jdbc.mapper;
+
+import com.anabol.userstore.entity.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ResultParser {
-    static List<User> parse(ResultSet resultSet) throws SQLException {
-        List<User> users = new ArrayList<>();
-        while (resultSet.next()) {
+public class Mapper {
+    public static User parse(ResultSet resultSet) throws SQLException {
+        //User user = new User();
+        if (!resultSet.isClosed()) {
             User user = new User();
             user.setId(resultSet.getInt("id"));
             user.setFirstName(resultSet.getString("firstName"));
@@ -20,10 +22,17 @@ public class ResultParser {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
             LocalDate dateOfBirth = LocalDate.parse(resultSet.getString("dateOfBirth"), dateTimeFormatter);
             user.setDateOfBirth(dateOfBirth);
+            return user;
+        }
+        return null;
+    }
+
+    public static List<User> parseList(ResultSet resultSet) throws SQLException {
+        List<User> users = new ArrayList<>();
+        while (resultSet.next()) {
+            User user = parse(resultSet);
             users.add(user);
         }
-
-
         return users;
     }
 }
